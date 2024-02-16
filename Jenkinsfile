@@ -5,9 +5,9 @@ pipeline {
         stage('Installing packer') {
             steps {
                 echo 'Installing HashiCorp Packer...'
-                sh 'wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg'
-                sh 'echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list'
-                sh 'sudo apt update && sudo apt install packer'
+                sh 'curl -o packer.zip https://releases.hashicorp.com/packer/1.8.5/packer_1.8.5_linux_amd64.zip'
+                sh 'unzip packer.zip'
+                sh 'sudo mv packer /usr/local/bin/'
             }
         }
         stage('Creating AMI') {
